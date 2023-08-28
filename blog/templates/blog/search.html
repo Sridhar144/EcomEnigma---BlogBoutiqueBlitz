@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% block title %}Search Results-SriDardBlog {% endblock %}
+{%block css%}
+
+{%endblock%}
+{% block body %}
+<h4>Search Results..</h4>
+{%if allposts|length == 0 %}
+<p>No Search Results for <strong>{{query}}</strong> didn't match any keywords<br> 
+    <li>Try different keywords!</li>
+    <li>Try more general keywords!</li>
+    <li>Try appropriate keywords!</li>
+</p>
+{%endif%}
+<div class="mt-5 mb-2 col-md-8" style="margin-left: 16.67%;">
+    {% for post in allposts%}
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="fs-2 d-inline-block mb-2 text-primary-emphasis">{{post.title}}</strong>
+        <h3 class="mb-0">Featured post by {{post.author}}</h3>
+        <div class="mb-1 text-body-secondary">{{post.datetime}}</div>
+        <p class="card-text mb-auto"><div class="preview">{{post.content|safe | truncatechars:230}}.</div></p>
+        <a href="/blog/{{post.slug}}" class="icon-link gap-1 icon-link-hover stretched-link">
+          Continue reading
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <img src="https://source.unsplash.com/300x300/?{{ post.title.split.0 }}" alt="">
+      </div>
+    </div>{% endfor %}
+    </div>{%endblock%}
+    {%block js%}
+    <script>
+        {%if dotell|length != 0%}
+    alert('{{dotell}}')
+     {%endif%}
+     let previews = document.getElementsByClassName("preview");
+     Array.from(previews).forEach((element)=>{
+      element.innerHTML=element.innerText
+     });
+
+    </script>
+    {%endblock%}

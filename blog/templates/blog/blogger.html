@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% block title %} Blogs-SriDardBlog {% endblock %}
+{%block css%}
+<style>
+.active3{
+  font-size: 1.2rem;
+  font-weight: 700;
+}</style>
+{%endblock%}
+{% block body %}
+
+<div class="mt-5 mb-2 col-md-8" style="margin-left: 16.67%;">
+  {% for post in allposts%}
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      
+      <a class="text-dark"  style="text-decoration:none" href="/blog/{{post.slug}}" class="icon-link gap-1 icon-link-hover stretched-link">
+        <strong class="fs-2 d-inline-block mb-2 text-primary-emphasis">{{post.title}} - Views({{post.views}})</strong>
+      
+      <h3 class="mb-0">Featured post by {{post.author}}</h3>
+      <div class="mb-1 text-body-secondary">{{post.datetime}}</div>
+      <p class="card-text mb-auto"><div class="preview">{{post.content|safe | truncatechars:285}}.</div></p>
+      <a href="/blog/{{post.slug}}" class="icon-link gap-1 icon-link-hover stretched-link">
+        <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+      </a>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+
+      <img src="https://source.unsplash.com/300x300/?{{ post.title.split.0 }}" alt="">
+  </div></a>
+  </div>{% endfor %}
+  </div>
+{%endblock%}
+
+{%block js%}
+<script>
+let previews = document.getElementsByClassName("preview");
+     Array.from(previews).forEach((element)=>{
+      console.log(element.innerText)
+      console.log(element.innerHTML)
+      element.innerHTML=element.innerText
+     })
+     </script>
+{%endblock%}

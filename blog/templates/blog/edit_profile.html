@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% block title %} SriDardBlog {% endblock %}
+{%block body%}
+
+<form action= "/blog/profile/" method='post'>    
+
+    <div class="row">
+        <div class="form-group col-md-6">
+          <label for="fname">Your Bio</label>
+          <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="bio" name="bio" >
+        </div>
+        <h5>Websites links</h5>
+        <div class="form-group col-md-6">
+          <label for="lname">Personal website</label>
+          <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="website" name="website">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="lname">Instagram</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="insta" name="insta">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Linkedin</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="linkedin" name="linkedin">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Twitter</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="twitter" name="twitter">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Regarded</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="other" name="other">
+          </div>
+    </div>
+        
+        
+        <!-- <div class="row m-4 p-4">
+        <div class="form-group col-md-4">
+          <a href="{{user.profile.web}}">Website | </a>
+          <a href="{{user.profile.insta}}">Insta | </a>
+          <a href="{{user.profile.linkedin}}">LinkedIn | </a>
+          <a href="{{user.profile.twitter}}">Twitter | </a>
+          <a href="{{user.profile.other}}">Regarded | </a>
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="inst" name="insta" value="{{user.profile.insta}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.linkedin}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.twitter}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.other}}" >
+        </div>
+        </div> -->
+  
+
+ 
+</form>
+
+{%endblock%}

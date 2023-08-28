@@ -1,0 +1,68 @@
+{% extends 'blog/base.html' %}
+{% block title %} SriDardBlog {% endblock %}
+{%block body%}
+<div class="row">
+  <div class="col">
+    <h1>My profile</h1>
+    <h6>  <span class="badge text-bg-light">Make your own Blog! =></span>
+
+<a href="/blog/make">  
+
+<i class="fas fa-edit fa-lg"  title="MAKE A BLOG!"></i>
+</a>  </h6>
+</div>
+</div>
+<form action= "/blog/profile/" method='post'>    
+
+    <div class="row">
+        <div class="form-group col-md-6">
+          <label for="fname">First Name</label>
+          <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="fname" name="fname" value="{{request.user.first_name}}"readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lname">Last Name</label>
+          <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="lname" name="lname" value="{{request.user.last_name}}"readonly>
+        </div>
+          
+        <div class="form-group col-md-6" style="margin-left: 16%;">
+          
+          <label for="username" style="margin-right: -36%;">Username</label>
+          <input style="width:45%;  margin-left: 50%"  type="text" class="form-control" id="username" name="username" value="{{user}}"readonly>
+        </div></div>
+        
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input style="width:40%; margin-left: 30%;" type="email" class="form-control" id="email" name="email" value="{{request.user.email}}" readonly>
+        </div>
+        <div class="card" style="width: 60rem; margin-left: 21%;">
+          <img src="/media/{{request.user.profile.image}}" class="w-5 card-img-top" alt="..." style="width: 20%;margin-left: 40%;"readonly>
+          <div class="card-body">
+            <p class="card-text">{{request.user.profile.bio}}</p>
+          </div>
+        </div>
+        <div class="row m-4 p-4">
+        <div class="form-group col-md-4">
+          <a href="{{request.user.profile.web}}">Website | </a>
+          <a href="{{request.user.profile.insta}}">Insta | </a>
+          <a href="{{request.user.profile.linkedin}}">LinkedIn | </a>
+          <a href="{{request.user.profile.twitter}}">Twitter | </a>
+          <a href="{{request.user.profile.other}}">Regarded | </a>
+        </div>
+        <!-- <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="inst" name="insta" value="{{user.profile.insta}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.linkedin}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.twitter}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <input style="width:40%" type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.other}}" >
+        </div> -->
+        </div>
+  
+
+ 
+</form>
+{%endblock%}

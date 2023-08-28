@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}  {% endblock %}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Montserrat:wght@100;400;700;900&family=Sacramento&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">        
+        {%block links%}
+        {%endblock%}  
+        <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+        <link rel="icon" href="/static/blog/img/favicon.ico">
+        
+        {%block css%}
+        {%endblock%}
+        {%block js1%}
+        {%endblock%}
+      </head>
+        
+</head>
+<body>
+    <div class="container-fluid p-0"> 
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark">
+                   
+            <a class="navbar-brand" href="/blog" style="color: beige;">SriDardBlog</a>
+            <a class="navbar-brand" href="/shop" style="color: beige;">ChadProDukts-Our E-Com Shop</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" style="background-color: beige;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <ul class="navbar-nav ms-auto">        
+                <li class="nav-item ">
+                    <a class="nav-link active1" href="/blog" style="color: beige;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active2" href="/blog/about" style="color: beige;">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active3" href="/blog/blogger" style="color: beige;">Blog</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link active4 me-3" href="/blog/contact" style="color: beige;">Contact</a>
+                </li> 
+                <form method="GET" action="/blog/search/" class="me-1 d-flex" role="search">
+                  <input class="form-control" name="query" style="width:36%" id="query" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hola {{request.user | truncatechars:8}}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li class="text-center">Welcome {{request.user| truncatechars:9}}</li>
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" id="sample1" href="/blog">Sample</a></li>
+                    <li><a class="dropdown-item" id="sample2" href="/blog/userlogout/">LOGOUT</a></li>
+                  </ul>
+                </div>
+                {% else %}
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  LogIn
+                </button>
+                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#signupModal">
+                  SignUp
+                </button>
+                {% endif %}
+
+              </ul>
+            </div>
+          
+        </nav>
+        </div>
+        {% for message in messages  %}            
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message : </strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      {% endfor %} 
+        <!-- Button trigger modal -->
+       
+        <!-- Modal -->
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action= "/blog/signup/" method='post'>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+              Password must have 8 chars and atleast 1 uppercase, 1 lowercase and a number<br>Username must be unique
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <div class="row">
+          <div class="form-group col-md-6">
+            <label for="fname">First Name</label>
+            <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name"required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Last Name</label>
+            <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+          </div>
+          <div class="form-group col-md-6">
+            
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username(Lower & Alnum only)"required>
+          </div></div>
+          
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+          </div>
+          <div class="row">
+        <div class="form-group col-md-6">
+          <label for="fname">Your Bio</label>
+          <textarea class="form-control" id="bio" name="bio" ></textarea>
+        </div>
+        <h5>Websites links</h5>
+        <div class="form-group col-md-6">
+          <label for="lname">Personal website</label>
+          <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="website" name="website">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="lname">Instagram</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="insta" name="insta">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Linkedin</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="linkedin" name="linkedin">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Twitter</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="twitter" name="twitter">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lname">Regarded</label>
+            <input style="width:40%; margin-left: 30%" type="text" class="form-control" id="other" name="other">
+          </div>
+    </div>
+          <div class="form-group">
+            <label for="pass1">Choose a password</label>
+            <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password" required>
+          </div>
+          <div class="form-group">
+            <label for="pass2">Confirm Password</label>
+            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again"required>
+          </div>
+         
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {%csrf_token%}
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/blog/userlogin/" method="POST"> {% csrf_token %}
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter your username "required>
+          </div>
+          <div class="form-group">
+            <label for="pass">Enter your password </label>
+            <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Enter your password "required>
+          </div>
+         
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+              </div>
+               <div class="modal-footer">
+              </div>
+              </div></div></div>
+        {% block body %}
+        {% endblock %}
+        
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-mutate-approach="sync"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>    
+    {%block js%} {%endblock%}
+    
+    <section>
+    <div id="footer" class="w-100 text-center bottom-container p-1 bg-dark
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: beige
+      text-align: center;">
+      <a  href="https://www.linkedin.com/in/sridhar-sundar-218905256/"><i class="social fab fa-linkedin"  style="color: #ffffff;"></i></a>
+      <a href="https://www.instagram.com/sridharr_4/"><i class="social fab fa-instagram"  style="color: #ffffff;"></i></a>
+      <a href="https://twitter.com/Sridhar82235516"><i class="social fab fa-twitter"    style="color: #ffffff;"></i></a>
+      <a href="mailto:sridharsundar100.com"><i class="social fas fa-envelope"   style="color: #ffffff;"></i></a>
+      <a href="https://www.facebook.com/sridhar.sundar.75/"><i class="social fab fa-facebook" style="color: #ffffff;"></i></a>
+      <p class="bg-dark text-white fw-bolder">© SriDardBlog</p>
+
+      </div>
+    </section>
+</body>
+</html>

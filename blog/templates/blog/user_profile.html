@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+{% block title %} SriDardBlog {% endblock %}
+{%block body%}
+<h1>Hello Its a me, {{page_user}}</h1>
+<h1>My profile</h1>
+
+
+
+
+          <label>First Name</label>
+          <h5>{{page_user.user.first_name}}</h5>
+        
+        <div>
+          <label for="lname">Last Name</label>
+          <h5>Last Name {{page_user.user.last_name}}</h5>
+        </div>
+          
+        <div class="form-group">
+            <label for="lname">USername</label>
+
+          <h5>Username-{{page_user.username}}</h5>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <h5>{{page_user.user.email}}" </h5>
+        </div>
+        <div class="card text-center" style="margin: 0 14%">
+          <img src="/media/{{page_user.user.profile.image}}" class="card-img-top" alt="..." style="width: 20%;margin-left: 40%;">
+          <div class="card-body">
+            <p class="card-text">{{page_user.user.profile.bio}}</p>
+          </div>
+        </div>
+        <div class="row m-4 p-4">
+        <div class="form-group col-md-4">
+          <a href="{{page_user.user.profile.web}}">Website | </a>
+          <a href="{{page_user.user.profile.insta}}">Insta | </a>
+          <a href="{{page_user.user.profile.linkedin}}">LinkedIn | </a>
+          <a href="{{page_user.user.profile.twitter}}">Twitter | </a>
+          <a href="{{page_user.user.profile.other}}">Regarded | </a>
+        </div>
+        <!-- <div class="form-group col-md-4">
+          <h5 type="text" class="form-control" id="inst" name="insta" value="{{user.profile.insta}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <h5 type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.linkedin}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <h5 type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.twitter}}" >
+        </div>
+        <div class="form-group col-md-4">
+          <h5 type="text" class="form-control" id="linkedin" name="linkedin" value="{{user.profile.other}}" >
+        </div> -->
+        </div>
+  
+
+ 
+</form>
+{%endblock%}

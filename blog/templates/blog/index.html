@@ -1,0 +1,104 @@
+{% extends 'blog/base.html' %}
+{% block title %} SriDardBlog {% endblock %}
+{%block css%}
+<style>
+.active1{
+  font-size: 1.2rem;
+  font-weight: 700;
+}</style>
+{%endblock%}
+{% block body %}
+    <main class="container">
+        <div class="row g-5">
+            <div class="col-md-9">
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+            <div class="col-lg-6 px-0">
+              <h1 class="display-4 fst-italic">Sridhar's Unknown Blogpost!</h1>
+              <p>Create your own blogs here!</p>
+              <p class="mt-2 fs-6 lead my-3">Just me spreading some content about my life and creating a space for others to post as this is a part of my project lol!<br>Watashi no na wa "Kira Sridhar" nenrei 33-sai jitaku wa..</p>
+              <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Kudasai kontentsu ni idō</a></p>
+            </div>
+          </div>
+          <h3>Popular BlogPosts</h3>
+          <div class="row mb-2">
+            {% for post in allposts%}
+
+            <div class="col-md-6">
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <a class="text-dark" href="/blog/{{post.slug}}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    <strong class="fs-2 d-inline-block mb-2 text-primary-emphasis">{{post.title}} - Views({{post.views}})</strong>
+                  </a>
+                  <h3 class="mb-0">Featured post by {{post.author}}</h3>
+                  <div class="mb-1 text-body-secondary">{{post.datetime}}</div>
+                  <p class="card-text mb-auto"><div class="preview">{{post.content|safe | truncatechars:285}}.</div></p>
+                  <a href="/blog/{{post.slug}}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    Continue reading
+                    <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+                  </a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+            
+                  <img src="https://source.unsplash.com/300x300/?{{ post.title.split.0 }}" alt="">
+              </div>
+              </div></div>
+            {% endfor %}
+          </div>
+          </div>
+          <div class="col-md-3">
+            <div class="position-sticky" style="top: 2rem;">
+              <div class="p-4 mb-3 bg-body-tertiary rounded">
+                <h4 class="fst-italic">About</h4>
+                <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+              </div>
+      
+              <div>
+                <h4 class="fst-italic">Recent posts</h4>
+                <ul class="list-unstyled">
+                  {%for recent in orderposts%}
+                  <li>
+                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                      <img src="https://source.unsplash.com/300x300/?{{ recent.title.split.0 }}" alt="">
+                      <div class="col-lg-8">
+                        <h6 class="mb-0">{{recent.title}}</h6>
+                        <small class="text-body-secondary"> {{recent.timestamp}} </small>
+                      </div>
+                    </a>
+                  </li>
+                 {%endfor%}
+                </ul>
+              </div>
+      
+              <div class="p-4">
+                <h4 class="fst-italic">Archives</h4>
+                <ol class="list-unstyled mb-0">
+                  <li><a href="#">July 2023</a></li>
+                  <li><a href="#">August 2023</a></li>
+                </ol>
+              </div>
+      
+              <div class="p-4">
+                <h4 class="fst-italic">My links!</h4>
+                <ol class="list-unstyled">
+                  <li><a href="https://www.linkedin.com/in/sridhar-sundar-218905256/">LinkedIn</a></li>
+                  <li><a href="https://github.com/Sridhar144">GitHub</a></li>
+                  <li><a href="https://www.instagram.com/sridharr_4">Insta</a></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          </div>
+    </main>
+    {% endblock %}
+    {%block js%}
+    <script>
+    let previews = document.getElementsByClassName("preview");
+         Array.from(previews).forEach((element)=>{
+          console.log(element.innerText)
+          console.log(element.innerHTML)
+          element.innerHTML=element.innerText
+         })
+         </script>
+    {%endblock%}
+    
