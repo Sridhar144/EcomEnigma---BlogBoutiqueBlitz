@@ -1,0 +1,63 @@
+{% extends 'shop/base.html' %}
+{%block title%} - ChadProducts {%endblock%}
+{%block links%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+{%endblock%}
+{%block body%}
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-4"><div class="row">
+            <img src="/media/{{product.0.product_image}}" class="w-100" style="height: 300px; width: 200px;" alt=""></div>
+            <div class="row">
+            <div id="divpr{{product.0.id}}" class="divpr">
+                  <button id="pr{{product.0.id}}" href="#" class="cart btn btn-primary">Add to Cart</button>
+                  </div><button class="w-50 btn btn-primary">Buy now</button></div>
+
+        </div>
+        <div class="col-md-8">
+            <h3><strong> {{product.0.product_name}} </strong></h3>
+            <h4><strong><em>Price:</em> Rs.{{product.0.product_prize}} </strong></h4>
+            <h5>Description - {{product.0.product_desc}}</h5>
+        </div>
+    </div>
+</div> -->
+
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Product name</th>
+            <th>Product category</th>
+            <th>Product subcategory</th>
+            <th>Product description</th>
+            <th>Product price</th>
+        </tr>
+    </thead>
+    <tbody>
+
+      {%for i in product%}
+        <tr>
+            <td>{{i.id}}</td>
+            <td>{{i.product_name}}</td>
+            <td>{{i.product_category}}</td>
+            <td>{{i.product_subcategory}}</td>
+            <td>{{i.product_desc}}</td>
+            <td>{{i.product_prize}}</td>
+        </tr>
+      {%endfor%}
+    </tfoot>
+</table>
+  
+  {%endblock%}
+  {%block js%}
+  <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function()
+{
+  $('#example').DataTable();
+});
+</script>
+{%endblock%}
+

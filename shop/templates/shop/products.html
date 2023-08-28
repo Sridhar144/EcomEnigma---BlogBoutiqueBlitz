@@ -1,0 +1,115 @@
+{% extends 'shop/base.html' %}
+{% block title %} {{product.0.product_name}}- ChadProducts {% endblock %}
+
+{%block body%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"><div class="row">
+            <img src="/media/{{product.0.product_image}}" class="w-100" style="height: 300px; width: 200px;" alt=""></div>
+            <div class="row">
+            <div id="divpr{{product.0.id}}" class="divpr">
+                  <button id="pr{{product.0.id}}" href="#" class="cart btn btn-primary">Add to Cart</button>
+                  <button class="w-50 now btn btn-primary">Buy now</button></div></div>
+
+        </div>
+        <div class="col-md-8">
+            <h3 id="namepr{{product.0.id}}">{{product.0.product_name}} </h3>
+            <p style="line-height: 2rem; height:3rem" id="descpr{{product.0.id}}" class="card-text">{{product.0.product_subcategory}}</p>
+            <p style="line-height: 2rem; height:3rem" class="card-text">Rs. <strong></strong><span id="pricepr{{product.0.id}}">{{product.0.product_prize}}</span></strong> </p>
+            <h5>Description - {{product.0.product_desc}}</h5>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{%block js%} 
+<script>
+    //find out thr idems in localstoage
+    if (localStorage.getItem('Cart')==null){
+      var Cart = {};
+    }
+    else{
+      Cart=JSON.parse(localStorage.getItem('Cart'));
+      document.getElementById('cart').innerHTML = Object.keys(Cart).length;
+  
+    }
+        var idstr  
+    //if cliked add on the cart, iadd incremnet
+  $('.divpr').on('click', 'button.cart', function(){
+  idstr = this.id.toString();
+  console.log(idstr);
+  if (Cart[idstr] !=undefined){
+    qty=Cart[idstr][0] + 1;
+}
+else
+{
+  qty=1;
+  name=document.getElementById('name'+idstr).innerHTML;
+  desc=document.getElementById('desc'+idstr).innerHTML;
+  price=document.getElementById('price'+idstr).innerHTML;
+
+Cart[idstr] = [qty, name, desc, parseInt(price)];
+  }
+  update(Cart)
+  
+    } 
+  );
+  //popover wala
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)});
+  
+  function clearCart(){
+  Cart=JSON.parse(localStorage.getItem('Cart'));
+    document.getElementById('div'+idstr).innerHTML=' <button id="'+idstr+'" href="#" class="cart btn btn-primary">Add to Cart</button>'
+  
+  localStorage.clear();
+  Cart={}
+  update(Cart);
+    location.reload();
+  }
+  var sum=0;
+  function update(Cart){
+      document.getElementById('div' + idstr).innerHTML = "<button id='minus"+idstr+"' class='btn btn-primary minus'>-</button> <span id='val"+idstr+"''>" + Cart[idstr][0] +"</span>  <button id='plus" + idstr + "' class='btn btn-primary plus'> + </button>"+'<button class="w-50 now btn btn-primary">Buy now</button>';
+    
+      localStorage.setItem('Cart', JSON.stringify(Cart));
+      
+        sum=Cart[idstr][0]
+      
+      document.getElementById('cart').innerHTML = sum;
+          console.log(cart);
+  }
+  $('.divpr').on('click', 'button.now', function(){
+      idstr = this.id.toString();
+      lister=Cart[idstr]
+      Cart[idstr]=lister
+      document.location='/shop/checkout'
+    });
+  //plus or minus button is clicked change the values!
+  $('.divpr').on("click", "button.minus", function(){
+    a=this.id.slice(5,);
+    Cart[a][0]=Cart[a][0]-1;
+    Cart[a][0]=Math.max(0,Cart[a][0]);
+    document.getElementById('val'+a).innerHTML=Cart[a][0];
+    if (Cart[a][0]==0){
+    console.log("blah blah")
+    delete Cart[a]
+    document.getElementById('div'+a).innerHTML=`<button id="`+a+`" href="#" class="cart btn btn-primary">Add to Cart</button>`
+    
+  }
+  else{
+    document.getElementById('val'+a).innerHTML=Cart[a][0];
+  }
+  update(Cart)
+  
+  });
+  $('.divpr').on("click", "button.plus", function(){
+    a=this.id.slice(4,);
+    Cart[a][0]=Cart[a][0]+1;
+    document.getElementById('val'+a).innerHTML=Cart[a][0];
+  update(Cart)
+  });
+  </script>
+  
+
+{%endblock%}

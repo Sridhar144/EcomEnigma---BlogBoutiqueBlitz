@@ -1,0 +1,102 @@
+
+h1,h2{
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+h1,h2{
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.5;
+}
+.carousel-indicators [data-bs-target]{
+  background-color:#a18989;
+}
+body{
+  font-family: 'Merriweather', serif;
+  font-weight: 400;
+  background-color: beige;
+  text-align: center;
+}
+h3{
+  font-weight: 600;
+/* navigation bar */
+}
+.navbar {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+}
+
+.navbar-brand {  
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.d-flex{
+margin-right: 60px;
+}
+.nav-item {
+  padding: 0 1.5px;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  font-weight:600;
+}
+
+/* carousel */
+.carousel-indicators{
+  position:absolute;
+  right:0;
+  bottom:150px;
+  left:0px; 
+ }
+.col-md-3
+{
+display: inline-block;
+margin-left:-4px;
+}
+.carousel-indicators .active {
+background-color: black;
+  }
+.col-md-3 img{
+width:80%;
+background-size: cover; background-repeat: no-repeat; background-position: center center;height: 240px;text-align: center;
+}
+body .carousel-indicators button{
+background-color: blue;
+}
+body .carousel-indicators{
+bottom: -40px;
+}
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+background-color: #333300;
+}
+body .carousel-control-prev,
+body .carousel-control-next{
+padding-top: 200px;
+}
+  body .no-padding{
+  padding-left: 0;
+  padding-right: 0;
+  }
+
+/* .container .carousel{
+  margin-bottom: 500px;
+} */
+
+  /*footer  */
+  #footer {
+     bottom: 0;
+    color: #707070;
+    height: 2em;
+    left: 0;
+    position: relative; 
+    font-size: small;
+    width:100%;
+}
+/* media */
+@media (max-width:768px){
+  .navbar-brand{
+    width: 45%;
+  }
+}

@@ -1,0 +1,171 @@
+{% extends 'shop/base.html' %}
+{% block title%} TrackCart your ChadProDukts{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col my-4">
+        <h2>ChadTracker - Track your items and its progress</h2>
+        <h3>For purpose of Tracking your order, please Enter Your Order ID given to you along with the below credentials you've registered with to confirm its you</h3>
+    </div>
+    <div class="my-5 col">
+      <h2> Enter Your Address for Delivery: </h2>
+      <form method="POST" action="#" id="trackerForm" class="row g-3">
+      {% csrf_token %}
+      <div class="col-md-12">
+        <label class="mb-2" for="specificSizeInputName">Order-ID</label>
+        <input type="text" style="width: 50%;" class="form-control" name="order_id" id="order_id" placeholder="69">
+        </div><div class="col-md-3">
+        <label class="mb-2" for="specificSizeInputName">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Jane Doe">
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" id="email">
+      </div>
+      <div class="col-md-3">
+        <label for="inputmob" class="form-label">Mobile number</label>
+        <input type="tel" class="form-control" name="phone" id="phone">
+      </div>  
+      
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Track Now</button>
+      </div>
+    </form>
+    <div class="col my-4">
+      <h2>Your Order Status</h2>
+      <div class="my-4">
+          <ul class="list-group" id="items">
+            Enter your order Id and Email and click Track Order to find details about your order!
+          </ul>
+      </div>
+      <h2>Your Order Details</h2>
+      <div class="my-4">
+          <ul class="list-group" id="citems">
+            Enter your order Id and Email and click Track Order to find details about your order!
+          </ul>
+      </div>
+  </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#trackerForm').submit(function(event) {
+    $('#items').empty();
+    var formData = {
+        'order_id': $('input[name=order_id]').val(),
+        'name':$('input[name=name]').val(),
+        'email':$('input[name=email]').val(),
+        'phone':$('input[name=phone]').val(),
+        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+            type: 'POST',
+            url: '/shop/tracker/',
+            data: formData,
+            encode: true
+        })
+        .done(function(data) {
+          $('#citems').empty();
+            data=JSON.parse(data);
+            if (data['status'] == 'success') {
+                updates = data['updates'];
+                for (i = 0; i < updates.length; i++) {
+                    let text = updates[i]['text'];
+                    let time = updates[i]['time'];
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${text}
+                    <span class="badge bg-dark badge-primary badge-pill">${time}</span>
+                </li>`
+                    $('#items').append(mystr);
+                }
+                Cart= JSON.parse(data['itemsJson']);
+                console.log(Cart);
+                for (item in Cart) {
+                  let name = Cart[item][1];
+                  let qty = Cart[item][0];
+                  let msg=Cart[item][2];
+                  mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">${name}</div>
+                    ${msg}
+                    </div>
+                  <span class="badge bg-primary rounded-pill">${qty}</span>
+                </li>`
+                  $('#citems').append(mystr);
+                }
+            } else {
+            	mystr = `<li style="font-family: Sacramento, cursive; font-size: 2.5rem;" class="list-group-item d-flex justify-content-between align-items-center">
+                    The credentials you've mentioned dont match up with the orders. Please enter the correct info to get the tracking available</li>`
+            	$('#items').append(mystr);
+            }
+            //fill the order details
+            
+
+    });
+    event.preventDefault()
+  });
+//   $('.first').on('click','input.one', function(){
+//     const change=document.querySelector('.pahla')
+//     const change2=document.querySelector('.dusra')
+//     change.setAttribute('id', 'preferred_address')
+//     change.setAttribute('name', 'preferred_address')
+//     change2.setAttribute('id', 'second_preferred_address')
+//     change2.setAttribute('name', 'second_preferred_address')
+
+//   });
+//   $('.second').on('click','input.two', function(){
+//     const change2=document.querySelector('.pahla')
+//     const change=document.querySelector('.dusra')
+//     change.setAttribute('id', 'preffered_address')
+//     change.setAttribute('name', 'preferred_address')
+//     change2.setAttribute('id', 'second_preferred_address')
+//     change2.setAttribute('name', 'second_preferred_address')
+//   });
+
+
+// if (localStorage.getItem('Cart') == null) {
+//     var Cart = {};
+// } else {
+//     Cart = JSON.parse(localStorage.getItem('Cart'));
+// }
+// console.log(Cart);
+// var sum = 0;
+// if ($.isEmptyObject(Cart)) {
+//     //if object is empty
+//     mystr = `<p>Your Cart is empty, please add some items to your Cart before checking out!</p>`
+//     $('#items').append(mystr);
+// } else {
+//     for (item in Cart) {
+//         let name = Cart[item][1];
+//         let qty = Cart[item][0];
+//         let msg=Cart[item][2];
+//         sum = sum + qty;
+//         mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+//         <div class="ms-2 me-auto">
+//           <div class="fw-bold">${name}</div>
+//           ${msg}
+//           </div>
+//         <span class="badge bg-primary rounded-pill">${qty}</span>
+//       </li>`
+//         $('#items').append(mystr);
+//     }
+// }
+// function clearCart(){
+//   Cart=JSON.parse(localStorage.getItem('Cart'));
+//   localStorage.clear();
+//   Cart={};
+//   mystr = `<p>Your Cart is empty, please add some items to your Cart before checking out!</p>`
+//     document.getElementById('items').innerHTML=mystr;
+//     document.getElementById('cart').innerHTML = sum;
+
+// }
+// document.getElementById('cart').innerHTML = sum;
+// $('#itemsJson').val(JSON.stringify(Cart));
+// function thankyou(){
+// alert('Thanks for order with us, Your order has been placed. Track using our order stacker')
+// localStorage.clear();
+// document.location="/shop"
+// }
+
+</script>
+{% endblock %}

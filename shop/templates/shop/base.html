@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}  {% endblock %}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Montserrat:wght@100;400;700;900&family=Sacramento&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">        
+        {%block links%}
+        {%endblock%}  
+        <link rel="stylesheet" href="{% static 'shop/css/styles.css' %}">
+        <link rel="icon" href="/static/shop/img/favicon.ico">
+        
+        {%block css%}
+        {%endblock%}
+      </head>
+        
+</head>
+<body>
+    <div class="container-fluid p-0"> 
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark">
+                   
+            <a class="navbar-brand" href="/shop" style="color: beige;">ChadProDukts</a>
+            <a class="navbar-brand" href="/blog" style="font-size: 1rem;color: beige;">SriDardBlog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" style="background-color: beige;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <ul class="navbar-nav ms-auto">        
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop/about" style="color: beige;">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop/tracker" style="color: beige;">Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop/contact" style="color: beige;">Contact</a>
+                </li> 
+                         
+            
+              <form method="GET" action="/shop/search/" class="me-1 d-flex" role="search">
+                <input class="form-control" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+               </ul> 
+              <!-- Example single danger button -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Cart-Actions
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/shop/items">Items List</a></li>
+                  
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" id="checkout" href="/shop/checkout">Checkout</a></li>
+                  <li><a class="dropdown-item" onclick=clearCart() id="clearCart" href="#">Delete ALL Items</a></li>
+                </ul>
+              </div>
+              <button type="button" class="mx-4 btn btn-secondary" id="popcart" data-html="true" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Your Cart items">
+                CartItems(<span id="cart">0</span>)
+              </button>
+            </div>
+          
+        </nav>
+        </div>
+        {% block body %}
+        {% endblock %}
+        
+<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js" data-mutate-approach="sync"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>    
+    {%block js%} {%endblock%}
+    
+    <section>
+    <div id="footer" class="w-100 text-center bottom-container p-1 bg-dark
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: beige
+      text-align: center;">
+      <a  href="https://www.linkedin.com/in/sridhar-sundar-218905256/"><i class="social fab fa-linkedin"  style="color: #ffffff;"></i></a>
+      <a href="https://www.instagram.com/sridharr_4/"><i class="social fab fa-instagram"  style="color: #ffffff;"></i></a>
+      <a href="https://twitter.com/Sridhar82235516"><i class="social fab fa-twitter"    style="color: #ffffff;"></i></a>
+      <a href="mailto:sridharsundar100.com"><i class="social fas fa-envelope"   style="color: #ffffff;"></i></a>
+      <a href="https://www.facebook.com/sridhar.sundar.75/"><i class="social fab fa-facebook" style="color: #ffffff;"></i></a>
+      <p class="bg-dark text-white fw-bolder">© ChadProDukts.</p>
+
+      </div>
+    </section>
+</body>
+</html>
